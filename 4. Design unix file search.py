@@ -39,7 +39,7 @@ class MinSizeFilter(Filter):
 
 
 class ExtensionFilter(Filter):
-    def __init__(self, extension):
+    def __init__(self, extension):  # "txt"
         self.extension = extension
 
     def apply(self, file):
@@ -133,3 +133,15 @@ my_linux_find.add_filter(txt_filter)
 
 print(my_linux_find.apply_OR_filtering(f1))
 print(my_linux_find.apply_AND_filtering(f1))
+
+# {StarTrek_4.txt}
+# {StarWars_10.xml}
+# {JusticeLeague_15.txt}
+# {IronMan_9.txt}
+# {MissionImpossible_10.rar}
+# {BigBangTheory_4.txt}
+# {AmericanPie_6.mp3}
+# [{StarTrek_4.txt}, {StarWars_10.xml}, {JusticeLeague_15.txt}, {IronMan_9.txt}, {MissionImpossible_10.rar}, {BigBangTheory_4.txt}, {AmericanPie_6.mp3}]
+# {JusticeLeague_15.txt}
+# {IronMan_9.txt}
+# [{JusticeLeague_15.txt}, {IronMan_9.txt}]
