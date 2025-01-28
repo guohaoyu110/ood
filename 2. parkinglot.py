@@ -7,6 +7,7 @@ class VehicleSize(Enum):
     SMALL = 1
     MEDIUM = 2
     LARGE = 3
+# status can also be enum 
 class ParkingSpotType(Enum):
     SMALL = 1
     MEDIUM = 2
@@ -134,6 +135,38 @@ class ParkingSystem:
         del self._timeParked[driver.get_id()]
         return self._parkingGarage.remove_vehicle(driver.get_vehicle())
 
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def process_payment(self, amount: float) -> None:
+        """Centralized contract for processing payment.
+           This method must be overridden by subclasses.
+        """
+        pass
+class CreditCardPayment(PaymentProcessor):
+    def __init__(self, card_number: str, expiration_date: str, cvv: str):
+        self.card_number = card_number
+        self.expiration_date = expiration_date
+        self.cvv = cvv
+
+    def process_payment(self, amount: float) -> None:
+        # Simulate processing a credit card payment
+        print(f"Processing credit card payment of ${amount}")
+        print(f"Using card number {self.card_number}, expiration date {self.expiration_date}, CVV {self.cvv}")
+        # Here would be the actual logic to communicate with a payment gateway
+        print("Credit card payment successful.")
+
+class PayPalPayment(PaymentProcessor):
+    def __init__(self, email: str, password: str):
+        self.email = email
+        self.password = password
+    def process_payment(self, amount: float) -> None:
+        # Simulate processing a PayPal payment
+        print(f"Processing PayPal payment of ${amount}")
+        print(f"Using PayPal account {self.email}")
+        # Here would be the actual logic to authenticate and process the payment
+        print("PayPal payment successful.")
+
+    
 # Creating parking spots for a floor (2 small, 1 medium, 1 large)
 floor1 = ParkingFloor([ParkingSpot(ParkingSpotType.SMALL), ParkingSpot(ParkingSpotType.SMALL),
                       ParkingSpot(ParkingSpotType.MEDIUM), ParkingSpot(ParkingSpotType.LARGE)])
